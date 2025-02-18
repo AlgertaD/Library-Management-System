@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<main class="container my-5">
+    <header class="text-center mb-4">
+        <h2>Search Books</h2>
+    </header>
+
+    <section>
+        <!-- Search Form -->
+        <form id="searchForm" action="/books/search" method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- Dropdown për kërkimin -->
+                    <select name="searchBy" class="form-select" required>
+                        <option value="title" th:selected="${searchBy == 'title'}">Kërko sipas Titullit</option>
+                        <!-- Mund të shtoni opsione të tjera këtu për kërkime të tjera (si autor, genre, etj.) -->
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <!-- Input për tekstin e kërkimit -->
+                    <input type="text" name="searchText" class="form-control" placeholder="Shkruani kërkimin tuaj" th:value="${searchText}" required />
+                </div>
+                <div class="col-md-2">
+                    <!-- Butoni i kërkimit -->
+                    <button type="submit" class="btn btn-primary w-100">Kërko</button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <header class="text-center mt-4">
+            <h3>Search Results</h3>
+        </header>
+
+        <!-- If no books found -->
+        <div th:if="${isEmpty}">
+            <p class="text-center text-muted">No books found.</p>
+        </div>
+
+        <!-- Display books if available -->
+        <div th:if="${!isEmpty}">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Year</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Available</th>
+                    <th scope="col">Borrowed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.year}"></td>
+                    <td th:text="${book.isbn}"></td>
+                    <td th:text="${book.quantity}"></td>
+                    <td th:text="${book.available}"></td>
+                    <td th:text="${book.borrowed}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="text-center mt-4">
+        <a href="/" class="btn btn-secondary">Home</a>
+    </footer>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

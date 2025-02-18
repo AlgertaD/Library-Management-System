@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huazimet e Librave</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <header class="my-4">
+        <h1 class="text-center">Huazimet e Librave</h1>
+    </header>
+    <a href="/loans/addLoan" class="btn btn-primary mb-3">Add New Loan</a>
+    <a href="/" class="btn btn-secondary mb-3">Home</a>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Libri</th>
+            <th>Studenti</th>
+            <th>Data e Huazimit</th>
+            <th>Data e Kthimit</th>
+            <th>Statusi</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="loan : ${loans}">
+            <td th:text="${loan.id}"></td>
+            <td th:text="${loan.book.title}"></td>
+            <td th:text="${loan.student.name}"></td>
+            <td th:text="${loan.loanDate}"></td>
+            <td th:text="${loan.returnDate}"></td>
+            <td th:text="${loan.status}"></td>
+            <td>
+                <a th:href="@{/loans/delete/{id}(id=${loan.id})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/loans/update/{id}(id=${loan.id})}" class="btn btn-warning">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <footer class="my-4">
+        <p class="text-center">Sistemi i Menaxhimit të Bibliotekës - 2025</p>
+    </footer>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

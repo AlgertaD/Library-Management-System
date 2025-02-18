@@ -1,0 +1,58 @@
+<!-- resources/templates/loans/updateLoan.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Loan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-5">
+    <h2 class="text-center">Update Loan</h2>
+    <form th:action="@{/loans/update/{id}(id=${loan.id})}" th:object="${loan}" method="post">
+        <div class="mb-3">
+            <label for="student" class="form-label">Studenti</label>
+            <select class="form-select" id="student" name="student" required>
+                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"
+                        th:selected="${student.id == loan.student.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="book" class="form-label">Libri</label>
+            <select class="form-select" id="book" name="book" required>
+                <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"
+                        th:selected="${book.id == loan.book.id}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="loanDate" class="form-label">Loan Date</label>
+            <input type="date" class="form-control" id="loanDate" name="loanDate"
+                   th:value="${loan.loanDate}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="returnDate" class="form-label">Return Date</label>
+            <input type="date" class="form-control" id="returnDate" name="returnDate"
+                   th:value="${loan.returnDate}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Borrowed" th:selected="${loan.status == 'Borrowed'}">Borrowed</option>
+                <option value="Returned" th:selected="${loan.status == 'Returned'}">Returned</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Update Loan</button>
+        <a href="/loans" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

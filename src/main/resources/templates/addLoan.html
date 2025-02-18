@@ -1,0 +1,60 @@
+<!-- resources/templates/loans/create.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Loan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container my-5">
+    <h2 class="text-center">Create New Loan</h2>
+    <form action="/loans/addLoan" method="post">
+        <div class="mb-3">
+            <label for="student" class="form-label">Studenti</label>
+            <select class="form-select" id="student" name="student" required>
+                <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.name}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="book" class="form-label">Libri</label>
+            <select class="form-select" id="book" name="book" required>
+                <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="loanDate" class="form-label">Loan Date</label>
+            <input type="date" class="form-control" id="loanDate" name="loanDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="returnDate" class="form-label">Return Date</label>
+            <input type="date" class="form-control" id="returnDate" name="returnDate" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Borrowed">Borrowed</option>
+                <option value="Returned">Returned</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-success">Save Loan</button>
+        <a href="/loans/list" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    // Get current date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
+    // Set current date as the default value for loanDate and returnDate
+    document.getElementById('loanDate').value = today;
+    document.getElementById('returnDate').value = today;
+</script>
+</body>
+</html>
